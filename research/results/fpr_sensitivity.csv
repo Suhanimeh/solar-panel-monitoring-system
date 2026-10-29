@@ -1,0 +1,16 @@
+method,target_fpr,precision,recall,f1,event_recall,false_alarms_per_day
+Expected-behaviour residual,0.001,0.974,0.663,0.786,0.844,0.625
+Expected-behaviour residual,0.005,0.921,0.701,0.794,0.869,2.05
+Expected-behaviour residual,0.01,0.88,0.719,0.788,0.869,3.3
+Expected-behaviour residual,0.02,0.795,0.736,0.761,0.881,6.35
+Expected-behaviour residual,0.05,0.614,0.762,0.678,0.894,15.8
+Isolation Forest (raw features),0.001,0.028,0.003,0.005,0.019,2.95
+Isolation Forest (raw features),0.005,0.14,0.014,0.023,0.075,4.875
+Isolation Forest (raw features),0.01,0.112,0.02,0.032,0.112,7.05
+Isolation Forest (raw features),0.02,0.145,0.049,0.069,0.238,11.275
+Isolation Forest (raw features),0.05,0.171,0.141,0.146,0.431,22.425
+Isolation Forest (+ engineered features),0.001,0.288,0.013,0.024,0.044,0.825
+Isolation Forest (+ engineered features),0.005,0.286,0.031,0.053,0.088,2.325
+Isolation Forest (+ engineered features),0.01,0.203,0.039,0.062,0.1,3.95
+Isolation Forest (+ engineered features),0.02,0.22,0.078,0.108,0.181,7.375
+Isolation Forest (+ engineered features),0.05,0.244,0.191,0.207,0.406,19.05

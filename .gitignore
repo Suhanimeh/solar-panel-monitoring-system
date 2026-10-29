@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+*.egg-info/
+
+# Analysis output
+analysis/output/
+
+# Runtime logs (keep the sample dataset, ignore fresh session logs)
+data/*.csv
+!data/sample/*.csv
+
+# OS/editor
+.DS_Store
+.vscode/
+*.swp
+
+# Arduino
+*.hex

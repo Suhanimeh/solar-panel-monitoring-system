@@ -1,0 +1,39 @@
+{
+  "args": {
+    "seeds": "10",
+    "base_seed": "42",
+    "n_days": "14",
+    "train_days": "8",
+    "val_days": "2",
+    "target_fpr": "0.01",
+    "sample_csv": "/home/claude/proj/data/sample/solar_readings_sample.csv",
+    "outdir": "/home/claude/proj/research/results"
+  },
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "n_rows": {
+    "train": 2880,
+    "validation": 720,
+    "test": 1440
+  },
+  "test_prevalence_seed0": 0.09166666666666666,
+  "test_events_seed0": 16,
+  "versions": {
+    "python": "3.12.3",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8"
+  },
+  "data_note": "ALL benchmark data is SIMULATED with injected faults; not hardware measurements."
+}

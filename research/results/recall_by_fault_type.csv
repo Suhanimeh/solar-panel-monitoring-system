@@ -1,0 +1,5 @@
+method,current_drop,stuck_current,voltage_spike,range_violation
+Range thresholds (existing logic),0.0,0.0,0.0,1.0
+Expected-behaviour residual,0.971,0.271,1.0,1.0
+Isolation Forest (raw features),0.002,0.004,0.108,0.211
+Isolation Forest (+ engineered features),0.06,0.018,0.018,0.014

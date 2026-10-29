@@ -1,0 +1,39 @@
+{
+  "n_rows": 360,
+  "time_span": [
+    "2026-06-01 06:00:00+00:00",
+    "2026-06-01 17:58:00+00:00"
+  ],
+  "missing_by_column": {
+    "voltage_v": 0,
+    "current_a": 0,
+    "power_w": 0,
+    "temp_c": 0,
+    "humidity_pct": 0,
+    "light_pct": 0
+  },
+  "duplicate_rows": 0,
+  "duplicate_timestamps": 0,
+  "sentinel_values": {
+    "voltage_v": 0,
+    "current_a": 0,
+    "power_w": 0,
+    "temp_c": 0,
+    "humidity_pct": 0,
+    "light_pct": 0
+  },
+  "out_of_range": {
+    "voltage_v": 0,
+    "current_a": 0,
+    "power_w": 0,
+    "temp_c": 0,
+    "humidity_pct": 0,
+    "light_pct": 0
+  },
+  "median_interval_s": 120.0,
+  "n_gaps_over_2x_median": 0,
+  "max_abs_power_vs_VxI_w": 0.005,
+  "status_counts": {
+    "OK": 360
+  }
+}
