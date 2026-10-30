@@ -11,12 +11,26 @@ reveal unusual operating conditions that warrant investigation?**
 cycle (see `data/sample/`).*
 
 > **Read this first — what is and is not real.**
-> The broader hardware project included real sensor readings and fault observations collected by the hardware team. The Python/software work represented here focuses on logging, validation, and analysis; raw hardware records are not committed.
+> The hardware team collected real sensor readings and fault observations for the broader project. My contribution focused on the Python/software, data handling, and analysis described below; the raw hardware records are not committed here.
 > The reproducible ML benchmark and checked-in result files use a separate **simulated multi-day dataset with injected, labelled deviations** (`research/simulate.py`). Its metrics describe only those synthetic test patterns; they are not evidence of real-world detector accuracy or confirmed equipment failures.
 
 ## 1. Project overview
 
-The project combines an Arduino monitoring workflow (firmware, host-side CSV logging, validation, and descriptive performance analysis) with a reproducible anomaly-detection research extension. The hardware team handled physical sensor setup and collection of real readings; my contribution focused on the Python/software and analytical component. Raw/private hardware records are intentionally not included.
+This was a team project with a clear split between the hardware and software work. The hardware team was responsible for the physical setup, sensor connections, and collecting readings from the solar panel. **My role was focused on the Python/software and data-analysis side of the project.** I worked on handling the sensor data after it was sent from the device, preparing it for analysis, and investigating how unusual operating behaviour could be identified.
+
+### My contribution
+
+- **Python data logging:** worked on the host-side software that receives the Arduino's serial output, parses measurement rows, adds a host timestamp, and saves readings to CSV files.
+- **Data validation and quality checks:** worked with checks for missing or malformed values, duplicate timestamps, invalid sensor ranges, sampling gaps, and consistency between voltage, current, and calculated power. Invalid or flagged rows are kept separately with a reason instead of being mixed into the accepted readings.
+- **Data analysis:** used Python to examine voltage, current, power, temperature, humidity, and light measurements, explore relationships between the variables, and summarize solar-panel performance.
+- **Anomaly-detection research:** developed the software-side experiment to compare existing range checks with an expected-behaviour residual approach and Isolation Forest. This included preparing features, using chronological train/validation/test splits, evaluating detection results, and creating result tables and plots.
+- **Testing and documentation:** worked on tests for the data-processing and research code and documented the workflow, methodology, findings, and limitations.
+
+### Team contribution
+
+The hardware team handled the physical sensor setup and collection of real sensor readings and fault observations. I did not build or wire the physical hardware. The raw hardware readings are not included in this public repository.
+
+**Important data distinction:** the project involved real sensor observations collected by the hardware team, while the reproducible benchmark results currently checked into this repository were generated separately using simulated data with injected test deviations. The benchmark scores therefore describe that simulated experiment only; they should not be presented as measured real-world detector accuracy.
 
 The `research/` extension adds the analytical layer the original lacked.
 Before this work the repository contained **no machine learning**, and the only
@@ -45,7 +59,7 @@ detector) identify unusual operating conditions that fixed range checks miss?*
 |---|---|---|
 | Monitoring | Observing/logging measurements | Yes (original system) |
 | Anomaly detection | Flagging observations that differ from expected patterns | **Yes — the task studied** |
-| Fault classification | Assigning known fault labels | No (no real labelled faults exist) |
+| Fault classification | Assigning known fault labels to observations | Not evaluated in this repository's reproducible benchmark; no labelled real-world dataset is included here |
 | Failure prediction | Estimating future failures | No (no run-to-failure data) |
 
 Only anomaly detection is supported by the available data. A flagged point means
