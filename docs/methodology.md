@@ -9,13 +9,13 @@ Audited from the uploaded repository archive (not the live GitHub page).
 | Firmware | Reads voltage (A0), current (ACS712, A1), light (A2), DHT22 temp/humidity; computes power; classifies each row OK / SENSOR_FAULT / OUT_OF_RANGE. Calibration constants are placeholders. |
 | Logger | Schema + range validation; rejects with reasons. Good basis for the baseline. `timestamp_utc` is host receive time, not sampling time. |
 | Analysis | Descriptive only (peak/avg power, trapezoidal energy, plots). **No ML, no anomaly detection, no labels.** |
-| Data | One simulated day, 360 rows, 2-min interval, all `OK`, no faults. No real hardware data is included. |
+| Data | The broader hardware project included real sensor readings and fault observations collected by the hardware team; raw records are not committed. The reproducible research benchmark in this repository is separate and fully simulated, with injected labels. |
 | Tests | 15 logger tests, which pass (run via a minimal stand-in for pytest). No tests for analysis. |
 | Documentation mismatches to verify | The original README references `docs/architecture.md`, `docs/testing_procedures.md` and `.github/workflows/tests.yml`; none were in the archive. Check whether they exist in the GitHub repo, and remove the links if not. |
 | Firmware comment mismatch | The `.ino` header mentions a ZMPT101B for voltage (an AC sensor), while the README and code use a resistive voltage divider. Worth correcting. |
 | Data realism | Voltage, current, temperature and light correlate at 0.99–1.00, impossible on real hardware; the sample is a clean simulation. |
 
-Original code was not modified.
+The research extension is kept separate from the firmware workflow. The host logger is included under `data_logger/`; private sensor records are intentionally excluded.
 
 ## B. Why this research question
 
@@ -29,7 +29,7 @@ Solar monitoring is **not** equivalent to industrial machinery maintenance. What
 
 ## C. Why simulated data, and its consequences
 
-The sample has no faults and no labels, so no detector can be scored against it. I generate multi-day data calibrated to the sample and **inject known faults** so ground truth exists. Consequences, to state upfront in any discussion:
+The private hardware observations are not part of this public checkout and do not provide a committed, reproducible labelled benchmark. The research experiment therefore generates multi-day simulated data and **injects known deviations** so methods can be compared against explicit synthetic ground truth. Consequences, to state upfront in any discussion:
 - Results show detectability of *my injected patterns*, not real failures.
 - A model similar in form to the data-generating process has an advantage by construction.
 - Absolute numbers are not transferable; the *relative* behaviour and failure modes (e.g., Isolation Forest not extrapolating) are the informative parts.
@@ -84,4 +84,4 @@ Simulated, injected faults; elevated prevalence (~9 %); daylight only; no season
 
 ## I. Honest reproducibility statement
 
-`python -m research.run_experiment` regenerates every number and figure; two runs gave identical output files. Tests: 23 new tests pass; the 15 original tests pass (run through a minimal stand-in for pytest because pytest could not be installed offline; run `pytest tests/ -v` yourself to confirm).
+`python -m research.run_experiment` regenerates every number and figure; two runs gave identical output files. The repository includes separate logger and research test suites. Run `python -m unittest discover tests` or `pytest tests/ -v` after installing dependencies from `requirements.txt`.

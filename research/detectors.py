@@ -12,8 +12,6 @@ needed to tune anything.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
@@ -26,8 +24,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from .data_prep import ENGINEERED_FEATURES, RAW_FEATURES
 
 # Reuse the *existing* logger's range limits as the single source of truth.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "data_logger"))
-from logger import VALID_RANGES  # noqa: E402
+from data_logger.logger import VALID_RANGES
 
 
 class BaseDetector:

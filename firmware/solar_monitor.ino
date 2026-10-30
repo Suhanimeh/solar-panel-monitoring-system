@@ -8,7 +8,7 @@
  * companion Python data logger (see /data_logger).
  *
  * Sensors:
- *   - ZMPT101B / voltage divider  -> Panel voltage      (Analog A0)
+ *   - Resistive voltage divider  -> Panel voltage      (Analog A0)
  *   - ACS712 current sensor       -> Panel current       (Analog A1)
  *   - DHT22                       -> Ambient temp/humidity (Digital D2)
  *   - LDR + fixed resistor        -> Light intensity     (Analog A2)

@@ -25,7 +25,7 @@ from .data_prep import (add_features, correlation_table, load_readings,
                         quality_report, split_by_day)
 from .detectors import VALID_RANGES, build_detectors
 from .evaluation import evaluate_detector
-from .simulate import make_dataset
+from .simulate import generate_clean_days, make_dataset
 
 REPO = Path(__file__).resolve().parent.parent
 METRIC_COLS = ["precision", "recall", "f1", "roc_auc", "pr_auc", "event_recall", "false_alarms_per_day"]
@@ -88,7 +88,15 @@ def main():
     args.outdir.mkdir(parents=True, exist_ok=True)
 
     # 1. Data quality + EDA on the repository's own sample file
-    sample = load_readings(args.sample_csv)
+    if args.sample_csv.exists():
+        sample = load_readings(args.sample_csv)
+        sample_source = str(args.sample_csv)
+    elif args.sample_csv == REPO / "data/sample/solar_readings_sample.csv":
+        sample = generate_clean_days(1, seed=args.base_seed)
+        sample_source = "generated in memory by research.simulate.generate_clean_days (SIMULATED)"
+        print("Optional sample CSV not found; using one generated simulated day instead.")
+    else:
+        ap.error(f"Sample CSV not found: {args.sample_csv}")
     report = quality_report(sample, VALID_RANGES)
     (args.outdir / "data_quality_repo_sample.json").write_text(json.dumps(report, indent=2))
     print("Repo sample data quality:", json.dumps(report, indent=2))
@@ -133,7 +141,8 @@ def main():
         "test_events_seed0": int(test["event_id"].max() - test.loc[test.event_id > 0, "event_id"].min() + 1),
         "versions": {"python": platform.python_version(), "numpy": np.__version__, "pandas": pd.__version__,
                      "scikit-learn": sklearn.__version__, "matplotlib": matplotlib.__version__},
-        "data_note": "ALL benchmark data is SIMULATED with injected faults; not hardware measurements.",
+        "sample_source": sample_source,
+        "data_note": "All benchmark training, validation, and test data is SIMULATED with injected faults. No private hardware data is included in this repository.",
     }
     (args.outdir / "run_metadata.json").write_text(json.dumps(meta, indent=2))
 
